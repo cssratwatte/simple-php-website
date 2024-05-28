@@ -5,42 +5,40 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Add your build steps here, e.g., compiling code
-                sh 'mvn clean install' // Example for a Maven project
+                // Use Windows-compatible commands
+                bat 'mvn clean install' // Example for a Maven project
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing...'
-                // Add your test steps here, e.g., running unit tests
-                sh 'mvn test' // Example for a Maven project
+                // Use Windows-compatible commands
+                bat 'mvn test' // Example for a Maven project
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                // Add your deploy steps here, e.g., deploying to a server
-                sh 'scp target/*.jar user@server:/path/to/deploy' // Example for SCP deployment
+                // Use Windows-compatible commands
+                bat 'powershell -Command "Copy-Item -Path target\\*.jar -Destination \\\\remote-server\\path\\to\\deploy"' // Example for deployment
             }
         }
 
         stage('Release') {
             steps {
                 echo 'Releasing...'
-                // Add your release steps here, e.g., tagging a release in VCS
-                sh 'git tag -a v1.0.0 -m "Release version 1.0.0"' // Example for Git tagging
-                sh 'git push origin v1.0.0'
+                // Use Windows-compatible commands
+                bat 'git tag -a v1.0.0 -m "Release version 1.0.0"' // Example for Git tagging
+                bat 'git push origin v1.0.0'
             }
         }
 
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up Monitoring and Alerting...'
-                // Add your monitoring and alerting setup here
-                // This can include integrating with monitoring tools or setting up alerts
-                // Example: Sending a notification
+                // Use Windows-compatible commands
                 script {
                     def buildStatus = currentBuild.currentResult
                     emailext (
